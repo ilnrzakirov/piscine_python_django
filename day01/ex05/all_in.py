@@ -18,28 +18,35 @@ capital_cities = {
 def find_state(input_value):
     key_for_capital_cities = ""
     for key, value in capital_cities.items():
-        if value == input_value:
-            key_for_capital_cities = key
+        if value.lower() == input_value.strip().title().lower():
+            key_for_capital_cities = key.lower()
             break
     for key, value in states.items():
-        if key_for_capital_cities == value:
+        if key_for_capital_cities == value.lower():
             return key
+    return None
 
 
 def find_capital(input_value):
     key_for_capital_cities = ""
     for key, value in states.items():
-        if key == input_value:
-            key_for_capital_cities = value
+        if key.lower() == input_value.strip().title().lower():
+            key_for_capital_cities = value.lower()
             break
     for key, value in capital_cities.items():
-        if key_for_capital_cities == key:
+        if key_for_capital_cities == key.lower().lower():
             return value
-
+    return None
 
 def find_dict(word: str):
-    state = find_state(word)
-    capital = find_capital(word)
+    state = find_state(word.lower())
+    capital = find_capital(word.lower())
+    if state:
+        print(f"{word} is the capital {state}")
+    elif capital:
+        print(f"{capital} is the capital {word}")
+    else:
+        print(f"{word} is neither a capital city nor a state")
 
 
 def find(argv):
