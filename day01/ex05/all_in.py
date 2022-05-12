@@ -14,6 +14,8 @@ capital_cities = {
     "CO": "Denver"
 }
 
+wordList = ["Oregon", "Alabama", "New Jersey", "Colorado", "Salem", "Montgomery", "Trenton", "Denver"]
+
 
 def find_state(input_value):
     key_for_capital_cities = ""
@@ -38,13 +40,19 @@ def find_capital(input_value):
             return value
     return None
 
+def find_word(word: str):
+    for elem in wordList:
+        if elem.lower() == word.lower().strip():
+            return elem
+
 def find_dict(word: str):
     state = find_state(word.lower())
     capital = find_capital(word.lower())
+    res_word = find_word(word)
     if state:
-        print(f"{word} is the capital {state}")
+        print(f"{res_word} is the capital {state}")
     elif capital:
-        print(f"{capital} is the capital {word}")
+        print(f"{capital} is the capital {res_word}")
     else:
         print(f"{word} is neither a capital city nor a state")
 
