@@ -40,10 +40,12 @@ def find_capital(input_value):
             return value
     return None
 
+
 def find_word(word: str):
     for elem in wordList:
         if elem.lower() == word.lower().strip():
             return elem
+
 
 def find_dict(word: str):
     state = find_state(word.lower())
