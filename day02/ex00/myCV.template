@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,7 +7,7 @@
     <title>{title}</title>
   </head>
   <body>
-  <h1>Name: {name} Surname {surname} </h1>
+  <h1>Name: {name} {surname} </h1>
   <h3>Age: {age} </h3>
   <h3>Profession: {pro} </h3>
   <p>Skills: {skill1}, {skill2} </p>
