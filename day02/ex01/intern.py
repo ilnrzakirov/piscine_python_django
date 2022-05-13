@@ -14,3 +14,20 @@ class Intern:
 
     def work(self):
         raise Exception("I’m just an intern, I can’t do that...")
+
+
+def main():
+    mark = Intern("Mark")
+    anonymous = Intern()
+    print(mark)
+    print(anonymous)
+    cup = mark.make_coffee()
+    print(cup)
+    try:
+        anonymous.work()
+    except Exception as error:
+        print(error)
+
+
+if __name__ == '__main__':
+    main()
