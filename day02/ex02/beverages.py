@@ -22,9 +22,24 @@ class Coffee(HotBeverage):
         return "A coffee, to stay awake."
 
 
+class Tea(HotBeverage):
+    def __init__(self):
+        super().__init__()
+        self.name = "tea"
 
+
+class Chocolate(HotBeverage):
+    def __init__(self):
+        super().__init__()
+        self.name = "chocolate"
+        self.price = 0.50
+
+
+t = Tea()
 v = HotBeverage()
 c = Coffee()
+r = Chocolate()
 print(v)
 print(c)
-
+print(t)
+print(r)
