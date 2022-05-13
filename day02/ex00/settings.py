@@ -1,0 +1,7 @@
+title = "resume"
+name = "Becki"
+surname = "Carlee"
+age = "31"
+pro = "Python dev"
+skill1 = "Django"
+skill2 = "HTML 5"
