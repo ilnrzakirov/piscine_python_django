@@ -1,4 +1,5 @@
-import sys, settings
+import settings
+import sys
 
 
 def create_result_file(filename: str):
