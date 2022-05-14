@@ -1,2 +1,2 @@
 #!/bin/sh
-curl --HEAD -s  $1 | grep location | cut -c 9-23
+curl --HEAD -s  $1 | grep location | cut -d " " -f 2
