@@ -1,4 +1,4 @@
-from elem import Elem
+from elem import Elem, Text
 
 
 class Html(Elem):
@@ -28,7 +28,7 @@ class Table(Elem):
 
 class Img(Elem):
     def __init__(self, content=None, attr={}):
-        super().__init__(tag='img', attr=attr, content=content, tag_type='double')
+        super().__init__(tag="img", content=content, attr=attr, tag_type="simple")
 
 
 class Title(Elem):
@@ -99,3 +99,13 @@ class Hr(Elem):
 class Br(Elem):
     def __init__(self, content=None, attr={}):
         super().__init__(tag='br', attr=attr, content=content, tag_type='double')
+
+
+if __name__ == '__main__':
+    print(Html([Head(), Body()]))
+    print()
+    print(Html([
+        Head([Title(content=Text("Hello ground!"))]),
+        Body([H1(content=Text("Oh no, not again!"))]),
+        Img(attr={"src": "http://i.imgur.com/pfp3T.jpg"})
+    ]))
