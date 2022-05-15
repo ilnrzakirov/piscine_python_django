@@ -83,4 +83,19 @@ class P(Elem):
 
 class Div(Elem):
     def __init__(self, content=None, attr={}):
-        super().__init__(tag='div', attr=attr, content=content, tag_type='double')
+        super().__init__(attr=attr, content=content, tag_type='double')
+
+
+class Span(Elem):
+    def __init__(self, content=None, attr={}):
+        super().__init__(tag='span', attr=attr, content=content, tag_type='double')
+
+
+class Hr(Elem):
+    def __init__(self, content=None, attr={}):
+        super().__init__(tag='hr', attr=attr, content=content, tag_type='double')
+
+
+class Br(Elem):
+    def __init__(self, content=None, attr={}):
+        super().__init__(tag='br', attr=attr, content=content, tag_type='double')
