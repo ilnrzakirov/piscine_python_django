@@ -14,7 +14,7 @@ class Elem:
             self.add_content(content)
 
     @staticmethod
-    def check_type(content):
+    def check_type(content)-> bool:
         """
         Проверка контента на принадлежность инстансу класса Elem, Text
         :param content: Elem, Text, None
@@ -31,7 +31,7 @@ class Elem:
 
     def add_content(self, content):
         """
-        Добавление новог контента в список
+        Добавление нового контента в список
         :param content: Elem, Text, None
         """
         if not Elem.check_type(content):
