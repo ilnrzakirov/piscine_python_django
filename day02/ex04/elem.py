@@ -15,6 +15,11 @@ class Elem:
 
     @staticmethod
     def check_type(content):
+        """
+        Проверка контента на принадлежность инстансу класса Elem, Text
+        :param content: Elem, Text, None
+        :return: boolean
+        """
         if not isinstance(content, Elem) and not isinstance(content, Text) and not isinstance(content, list):
             return False
 
@@ -25,6 +30,10 @@ class Elem:
         return True
 
     def add_content(self, content):
+        """
+        Добавление новог контента в список
+        :param content: Elem, Text, None
+        """
         if not Elem.check_type(content):
             raise Elem.ValidationError
         if isinstance(content, list):
@@ -37,6 +46,10 @@ class Elem:
 
 class Text(str):
     def __str__(self):
+        """
+        Замена ковычек и угловых скобок на специальные символы
+        :return: str
+        """
         out = super().__str__()
         out = out.replace('"', '&quot;')
         out = out.replace('<', '&lt;')
