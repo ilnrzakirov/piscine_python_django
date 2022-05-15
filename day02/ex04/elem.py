@@ -16,13 +16,13 @@ class Elem:
     @staticmethod
     def check_type(content):
         if not isinstance(content, Elem) and not isinstance(content, Text) and not isinstance(content, list):
-            return (False)
+            return False
 
         if isinstance(content, list):
             for elem in content:
                 if not isinstance(elem, Text) and not isinstance(elem, Elem):
-                    return (False)
-        return (True)
+                    return False
+        return True
 
     def add_content(self, content):
         if not Elem.check_type(content):
@@ -42,4 +42,4 @@ class Text(str):
         out = out.replace('<', '&lt;')
         out = out.replace('>', '&gt;')
         out = out.replace('\n', '\n<br />\n')
-        return (out)
+        return out
