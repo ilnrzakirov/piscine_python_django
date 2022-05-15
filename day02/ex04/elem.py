@@ -52,7 +52,7 @@ class Elem:
             return ""
         ret = "\n"
         for x in self.content:
-            ret += " " + str(x).replace("\n", "\n ") + "\n"
+            ret += "  " + str(x).replace("\n", "\n  ") + "\n"
         return ret
 
     def __str__(self):
@@ -76,6 +76,7 @@ class Text(str):
         return out
 
 
-print(Elem())
-print(Elem('div', {}, None, 'double'))
-print(Elem(tag='body', attr={}, content=Elem(), tag_type='double'))
+# print(Elem())
+# print(Elem('div', {}, None, 'double'))
+# print(Elem(tag='body', attr={}, content=Elem(), tag_type='double'))
+# print(Elem(content=Elem(content=Elem(content=Elem()))))
