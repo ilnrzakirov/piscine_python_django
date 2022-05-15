@@ -14,3 +14,6 @@ class Page:
                                        elements.Ol, elements.Li, elements.H1, elements.H2, elements.P, elements.Div,
                                        elements.Span, elements.Hr, elements.Br)) or type(self.elem) == Text):
             return False
+        if isinstance(self.elem, elements.Meta) or type(self.elem) == Text:
+            return True
+        if isinstance(self.elem, elements.Html) or len(self.elem.content) == 2 and type()
