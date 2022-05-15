@@ -59,7 +59,7 @@ class Elem:
         if self.tag_type == "double":
             return f"<{str(self.tag)}>{self.get_attr()}{self.get_content()}</{self.tag}>"
         elif self.tag_type == "simple":
-            return f"<{str(self.tag)}{self.get_attr()}></{self.get_attr()}>"
+            return f"<{str(self.tag)}{self.get_attr()} />"
 
 
 class Text(str):
