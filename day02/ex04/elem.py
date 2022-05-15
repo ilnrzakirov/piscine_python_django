@@ -3,15 +3,15 @@ class Elem:
         def __init__(self) -> None:
             super().__init__("incorrect behaviour.")
 
-    def __init__(self, tag="div", content=None, attr={}, tag_type="double"):
+    def __init__(self, tag="div", attr={}, content=None, tag_type="double"):
         self.tag = tag
         self.attr = attr
         self.tag_type = tag_type
         self.content = []
-        if not (self.check_type(content) or content is None):
-            raise self.ValidationError
         if content:
             self.add_content(content)
+        elif content is not None and not isinstance(content, Text):
+            raise self.ValidationError
 
     @staticmethod
     def check_type(content) -> bool:
@@ -57,7 +57,7 @@ class Elem:
 
     def __str__(self):
         if self.tag_type == "double":
-            return f"<{str(self.tag)}{self.get_attr()}{self.get_content()}>"
+            return f"<{str(self.tag)}{self.get_attr()}{self.get_content()}></{self.tag}>"
         elif self.tag_type == "simple":
             return f"<{str(self.tag)}{self.get_attr()}></{self.get_attr()}>"
 
@@ -75,3 +75,7 @@ class Text(str):
         out = out.replace('\n', '\n<br />\n')
         return out
 
+
+print(Elem())
+print(Elem('div', {}, None, 'double'))
+print(Elem(tag='body', attr={}, content=Elem(), tag_type='double'))
