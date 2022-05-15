@@ -14,7 +14,7 @@ class Elem:
             self.add_content(content)
 
     @staticmethod
-    def check_type(content)-> bool:
+    def check_type(content) -> bool:
         """
         Проверка контента на принадлежность инстансу класса Elem, Text
         :param content: Elem, Text, None
@@ -41,8 +41,26 @@ class Elem:
         elif content != Text(''):
             self.content.append(content)
 
+    def get_attr(self):
+        ret = ""
+        for x in sorted(self.attr.items()):
+            ret += " " + str(x[0]) + "=" + str(x[1])
+        return ret
+
+    def get_content(self):
+        if not self.content:
+            return ""
+        ret = "\n"
+        for x in self.content:
+            ret += " " + str(x).replace("\n", "\n ") + "\n"
+        return ret
 
     def __str__(self):
+        if self.tag_type == "double":
+            return f"<{str(self.tag)}{self.get_attr()}{self.get_content()}>"
+        elif self.tag_type == "simple":
+            return f"<{str(self.tag)}{self.get_attr()}></{self.get_attr()}>"
+
 
 class Text(str):
     def __str__(self):
@@ -56,3 +74,4 @@ class Text(str):
         out = out.replace('>', '&gt;')
         out = out.replace('\n', '\n<br />\n')
         return out
+
