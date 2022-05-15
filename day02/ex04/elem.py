@@ -24,6 +24,16 @@ class Elem:
                     return (False)
         return (True)
 
+    def add_content(self, content):
+        if not Elem.check_type(content):
+            raise Elem.ValidationError
+        if isinstance(content, list):
+            self.content += [x for x in content if x != Text('')]
+        elif content != Text(''):
+            self.content.append(content)
+
+
+    def __str__(self):
 
 class Text(str):
     def __str__(self):
