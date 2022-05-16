@@ -18,14 +18,13 @@ def main():
         "redirects": True,
         "formatversion": 2
     }
-
-    response = request.get(url=url, params=params)
-    data = response.json()
     try:
+        response = request.get(url=url, params=params)
+        data = response.json()
         output_data = dewiki.from_string(data['parse']['wikitext'])
         with open(f"{sys.argv[1]}.wiki", "w") as file:
             file.write(output_data.replace("\n\n", "\n"))
-    except KeyError as error:
+    except (Exception, KeyError) as error:
         print("Try again")
 
 
