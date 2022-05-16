@@ -3,6 +3,8 @@ import requests
 from bs4 import BeautifulSoup
 
 titleList = []
+
+
 def search_phil(word):
     if word.startswith("/wiki/"):
         word = word.replace("/wiki/", "")
@@ -41,7 +43,7 @@ def main():
         sys.exit()
     if len(sys.argv) == 2:
         search_phil(sys.argv[1])
-    
+
 
 if __name__ == '__main__':
     main()
