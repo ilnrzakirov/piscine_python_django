@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-#virtualenv --python=python3 local_lib;
 python3 -m venv local_lib
 source local_lib/bin/activate
 pip3 --version
