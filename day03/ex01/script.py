@@ -9,5 +9,5 @@ if __name__ == '__main__':
     file = Path("script/script.txt")
     file.touch()
     file.write_text("Hello world!")
-    data =file.read_text()
+    data = file.read_text()
     print(data)
