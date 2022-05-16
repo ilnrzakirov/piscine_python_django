@@ -1,7 +1,5 @@
 import sys
-
 import requests
-import dewiki
 from bs4 import BeautifulSoup
 
 titleList = []
