@@ -1,23 +1,20 @@
 import sys
 
-states = {
-    "Oregon": "OR",
-    "Alabama": "AL",
-    "New Jersey": "NJ",
-    "Colorado": "CO"
-}
-
-capital_cities = {
-    "OR": "Salem",
-    "AL": "Montgomery",
-    "NJ": "Trenton",
-    "CO": "Denver"
-}
-
-wordList = ["Oregon", "Alabama", "New Jersey", "Colorado", "Salem", "Montgomery", "Trenton", "Denver"]
-
 
 def find_state(input_value):
+    states = {
+        "Oregon": "OR",
+        "Alabama": "AL",
+        "New Jersey": "NJ",
+        "Colorado": "CO"
+    }
+
+    capital_cities = {
+        "OR": "Salem",
+        "AL": "Montgomery",
+        "NJ": "Trenton",
+        "CO": "Denver"
+    }
     key_for_capital_cities = ""
     for key, value in capital_cities.items():
         if value.lower() == input_value.strip().title().lower():
@@ -30,6 +27,19 @@ def find_state(input_value):
 
 
 def find_capital(input_value):
+    states = {
+        "Oregon": "OR",
+        "Alabama": "AL",
+        "New Jersey": "NJ",
+        "Colorado": "CO"
+    }
+
+    capital_cities = {
+        "OR": "Salem",
+        "AL": "Montgomery",
+        "NJ": "Trenton",
+        "CO": "Denver"
+    }
     key_for_capital_cities = ""
     for key, value in states.items():
         if key.lower() == input_value.strip().title().lower():
@@ -42,6 +52,7 @@ def find_capital(input_value):
 
 
 def find_word(word: str):
+    wordList = ["Oregon", "Alabama", "New Jersey", "Colorado", "Salem", "Montgomery", "Trenton", "Denver"]
     for elem in wordList:
         if elem.lower() == word.lower().strip():
             return elem
