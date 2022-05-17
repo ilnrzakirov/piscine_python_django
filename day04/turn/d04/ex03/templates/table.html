@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Table</title>
+</head>
+<body>
+<table>
+	<th>Black</th>
+	<th>Red</th>
+	<th>Green</th>
+	<th>Blue</th>
+
+{% for c in color %}
+	<tr>
+		<td style = "background-color : rgb({{ c }}, {{ c }}, {{ c }});">Black</td>
+		<td style = "background-color : rgb({{ c }}, 0, 0);">Red</td>
+		<td style = "background-color : rgb(0, {{ c }}, 0);">Green</td>
+		<td style = "background-color : rgb(0, 0, {{ c }});">Blue</td>
+	</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
