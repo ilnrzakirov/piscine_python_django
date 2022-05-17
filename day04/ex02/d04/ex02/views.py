@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, FormView
 from . import forms
 from django.conf import settings
+import datetime
 
 
 class SubmitView(FormView):
@@ -14,6 +15,7 @@ class SubmitView(FormView):
         if form.is_valid():
             text = form.cleaned_data.get("input_data")
             with open(settings.LOG_ROOT, "a") as file:
+                file.write(f"{str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M'))} ")
                 file.write(text)
                 file.write("\n")
         return redirect('submit')
