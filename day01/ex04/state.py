@@ -27,7 +27,7 @@ def capital(argv):
         if key_for_capital_cities == value:
             print(key)
             return 0
-    print("Unknown state")
+    print("Unknown capital city")
 
 
 if __name__ == '__main__':

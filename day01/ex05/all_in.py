@@ -63,9 +63,9 @@ def find_dict(word: str):
     capital = find_capital(word.lower())
     res_word = find_word(word)
     if state:
-        print(f"{res_word} is the capital {state}")
+        print(f"{res_word} is the capital of {state}")
     elif capital:
-        print(f"{capital} is the capital {res_word}")
+        print(f"{capital} is the capital of {res_word}")
     else:
         print(f"{word} is neither a capital city nor a state")
 
