@@ -1,8 +1,15 @@
 html {
-color: #FF0000;
-background-color: #c0c0c0;
+color: #FF0000 !important;
+background-color: #c0c0c0 !important;
+}
+p {
+color: #FF0000 !important;
 }
 
-p {
-	color: #0000ff;
+h1 {
+color: #FF0000 !important;
+}
+
+h2 {
+color: #FF0000 !important;
 }
