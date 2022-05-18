@@ -1,0 +1,4 @@
+brew install PostgreSQL
+initdb postgres
+pg_ctl -D postgres start
+psql postgres
