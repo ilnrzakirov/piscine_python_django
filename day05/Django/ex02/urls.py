@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('init/', views.db_init_view),
-    path('populate/', views.populate_view)
+    path('populate/', views.populate_view),
+    path('display/', views.display_view),
 ]

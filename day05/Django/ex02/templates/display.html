@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+</head>
+<body>
+<table>
+	<th>title</th>
+	<th>episode_nb</th>
+	<th>opening_crawl</th>
+	<th>director</th>
+	<th>producer</th>
+	<th>release_date</th>
+{% for items in data %}
+<tr>
+	{% for item in items %}
+
+	{% if item %}
+		<td>{{ item }}</td>
+	{% else %}
+		<td></td>
+	{% endif %}
+	{% endfor %}
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>

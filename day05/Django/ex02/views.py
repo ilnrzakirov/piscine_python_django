@@ -28,7 +28,7 @@ def populate_view(request):
         connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
                                    host=db['HOST'], port=db['PORT'])
         with connect.cursor() as db_connect:
-            db_connect.execute("INSERT INTO ex02_movies (episode_nb, title, opening_crawl, director, producer, "
+            db_connect.execute("INSERT INTO ex02_movies (episode_nb, title, director, producer, "
                                "release_date) VALUES (1, 'The Phantom Menace', 'George Lucas', 'Rick McCallum', "
                                "'1999-05-19'), (2, 'Attack of the Clones', 'George Lucas', 'Rick McCallum', "
                                "'2002-05-16'), (3, 'Revenge of the Sith', 'George Lucas', 'Rick McCallum', "
@@ -44,3 +44,16 @@ def populate_view(request):
         return HttpResponse(error)
 
 
+def display_view(request):
+    try:
+        db = settings.DATABASES['default']
+        connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
+                                   host=db['HOST'], port=db['PORT'])
+        with connect.cursor() as db_connect:
+            db_connect.execute("SELECT * FROM ex02_movies;")
+            if (db_connect.fetchone() == None):
+                return HttpResponse("No data available")
+            data = db_connect.fetchall()
+    except Exception as error:
+        return HttpResponse(error)
+    return render(request, 'display.html', context={'data': data})
