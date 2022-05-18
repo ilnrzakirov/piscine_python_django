@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies</title>
+</head>
+<body>
+<table>
+	<th>episode_nb</th>
+	<th>title</th>
+	<th>director</th>
+	<th>producer</th>
+	<th>release_date</th>
+	<th>opening_crawl</th>
+{% for items in data %}
+<tr>
+	<td>{{ items.episode_nb }}</td>
+	<td>{{ items.title }}</td>
+	<td>{{ items.director }}</td>
+	<td>{{ items.producer }}</td>
+	<td>{{ items.release_date }}</td>
+	<td>{{ items.opening_crawl }}</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>

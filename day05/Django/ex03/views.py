@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView, ListView
+
 from .models import Movies
 from django.http import HttpResponse
+from django.conf import settings
+import psycopg2
 
 
 def populate_view(request):
@@ -55,4 +59,10 @@ def populate_view(request):
                                   producer=mov['producer'], release_date=mov['release_date'])
         except Exception as error:
             return HttpResponse(error)
-        return HttpResponse("Ok")
+    return HttpResponse("Ok")
+
+
+class DisplayView(ListView):
+    template_name = 'ex03/display.html'
+    context_object_name = 'data'
+    queryset = Movies.objects.all()
