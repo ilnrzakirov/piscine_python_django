@@ -7,7 +7,7 @@ class Movies(models.Model):
     opening_crawl = models.TextField()
     director = models.CharField(max_length=32, null=False)
     producer = models.CharField(max_length=128, null=False)
-    release_date = models.DateField(null=False, auto_now_add=True)
+    release_date = models.DateField(null=False)
 
     def __str__(self):
         return str(self.title)
