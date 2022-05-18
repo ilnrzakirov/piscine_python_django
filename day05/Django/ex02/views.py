@@ -39,6 +39,7 @@ def populate_view(request):
                                "(7, 'The Force Awakens', 'J. J. Abrams', 'Kathleen Kennedy, J. J. Abrams, Bryan Burk', "
                                "'2015-12-11');")
             connect.commit()
+            connect.close()
             return HttpResponse("Ok")
     except Exception as error:
         return HttpResponse(error)
@@ -54,6 +55,7 @@ def display_view(request):
             if (db_connect.fetchone() == None):
                 return HttpResponse("No data available")
             data = db_connect.fetchall()
+            connect.close()
     except Exception as error:
         return HttpResponse(error)
     return render(request, 'display.html', context={'data': data})
