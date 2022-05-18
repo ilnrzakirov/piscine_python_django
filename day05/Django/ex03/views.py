@@ -3,8 +3,6 @@ from django.views.generic import TemplateView, ListView
 
 from .models import Movies
 from django.http import HttpResponse
-from django.conf import settings
-import psycopg2
 
 
 def populate_view(request):
