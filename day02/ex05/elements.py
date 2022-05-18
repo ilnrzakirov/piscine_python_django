@@ -107,5 +107,5 @@ if __name__ == '__main__':
     print(Html([
         Head([Title(content=Text("Hello ground!"))]),
         Body([H1(content=Text("Oh no, not again!"))]),
-        Img(attr={"src": "http://i.imgur.com/pfp3T.jpg"})
+        Img(attr={"src": '"http://i.imgur.com/pfp3T.jpg"'})
     ]))
