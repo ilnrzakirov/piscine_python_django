@@ -96,12 +96,11 @@ class RemoveView(View):
                     data = db_connect.fetchall()
                     choices = ((line[0], line[0]) for line in data)
             except Exception as error:
-                print(error)
+                HttpResponse("No data available")
             context = RemoveForm(choices, request.POST)
             if context.is_valid():
                 try:
                     with connect.cursor() as db_connect:
-                        print(context)
                         db_connect.execute(f"DELETE FROM ex04_movies WHERE title='{context.cleaned_data['title']}';")
                         connect.commit()
                 except Exception as error:
