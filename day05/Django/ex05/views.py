@@ -84,3 +84,6 @@ class RemoveView(View):
             return render(request, 'ex05/remove.html', context={'form': RemoveForm(choices)})
         except Exception:
             return HttpResponse("No data available movies")
+
+    def post(self, request):
+
