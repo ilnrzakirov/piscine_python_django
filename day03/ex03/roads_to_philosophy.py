@@ -2,10 +2,9 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-titleList = []
-
 
 def search_phil(word):
+    titleList = []
     if word.startswith("/wiki/"):
         word = word.replace("/wiki/", "")
     url = f'https://en.wikipedia.org/wiki/{word}'

@@ -53,8 +53,9 @@ def populate_view(request):
     ]
     for mov in movList:
         try:
-            Movies.objects.create(episode_nb=mov['episode_nb'], title=mov['title'], director=mov['director'],
-                                  producer=mov['producer'], release_date=mov['release_date'])
+            if Movies.objects.filter(episode_nb=mov['episode_nb']).count() == 0:
+                Movies.objects.create(episode_nb=mov['episode_nb'], title=mov['title'], director=mov['director'],
+                                      producer=mov['producer'], release_date=mov['release_date'])
         except Exception as error:
             return HttpResponse(error)
     return HttpResponse("Ok")

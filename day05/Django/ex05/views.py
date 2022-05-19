@@ -4,6 +4,7 @@ from django.views.generic import ListView, View
 from django.shortcuts import redirect, render
 from .forms import RemoveForm
 
+
 def populate_view(request):
     movList = [
         {
@@ -52,8 +53,9 @@ def populate_view(request):
     ]
     for mov in movList:
         try:
-            Movies.objects.create(episode_nb=mov['episode_nb'], title=mov['title'], director=mov['director'],
-                                  producer=mov['producer'], release_date=mov['release_date'])
+            if Movies.objects.filter(episode_nb=mov['episode_nb']).count() == 0:
+                Movies.objects.create(episode_nb=mov['episode_nb'], title=mov['title'], director=mov['director'],
+                                      producer=mov['producer'], release_date=mov['release_date'])
         except Exception as error:
             return HttpResponse(error)
     return HttpResponse("Ok")
@@ -73,7 +75,7 @@ class RemoveView(View):
             data = Movies.objects.all()
             print(data)
             if len(data) == 0:
-                return HttpResponse("No data available movies")
+                return HttpResponse("No data available")
             choices = ((line.title, line.title) for line in data)
             return render(request, 'ex05/remove.html', context={'form': RemoveForm(choices)})
         except Exception:
