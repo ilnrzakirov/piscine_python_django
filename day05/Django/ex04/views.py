@@ -76,9 +76,10 @@ class RemoveView(View):
                     db_connect.execute("SELECT * FROM ex04_movies;")
                     if (db_connect.fetchone() == None):
                         return HttpResponse("No data available")
+                    db_connect.execute("SELECT * FROM ex04_movies;")
                     data = db_connect.fetchall()
                     connect.close()
-                    context = {'form': RemoveForm(choices=((line[0], line[0]) for line in data))}
+                    context = {'form': RemoveForm(choices=((line[1], line[1]) for line in data))}
                     return render(request, 'remove.html', context=context)
             except Exception as error:
                 print(error)
@@ -93,15 +94,15 @@ class RemoveView(View):
                 with connect.cursor() as db_connect:
                     db_connect.execute("SELECT * FROM ex04_movies;")
                     data = db_connect.fetchall()
-                    choices = ((line[0], line[0]) for line in data)
+                    choices = ((line[1], line[1]) for line in data)
             except Exception as error:
                 print(error)
                 context = RemoveForm(choices, request.POST)
                 if context.is_valid():
                     try:
                         with connect.cursor() as db_connect:
-                            db_connect.execute(f"DELETE FROM ex04_movies WHERE title='{context.changed_data['title']}'")
+                            db_connect.execute(f"DELETE FROM ex04_movies WHERE title={context.changed_data['title']};")
                             connect.commit()
                     except Exception as error:
                         print(error)
-            return redirect('remove.html')
+            return redirect('remove')
