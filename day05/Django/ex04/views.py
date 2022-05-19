@@ -92,17 +92,18 @@ class RemoveView(View):
                 connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
                                            host=db['HOST'], port=db['PORT'])
                 with connect.cursor() as db_connect:
-                    db_connect.execute("SELECT * FROM ex04_movies;")
+                    db_connect.execute("SELECT title FROM ex04_movies;")
                     data = db_connect.fetchall()
-                    choices = ((line[1], line[1]) for line in data)
+                    choices = ((line[0], line[0]) for line in data)
             except Exception as error:
                 print(error)
-                context = RemoveForm(choices, request.POST)
-                if context.is_valid():
-                    try:
-                        with connect.cursor() as db_connect:
-                            db_connect.execute(f"DELETE FROM ex04_movies WHERE title={context.changed_data['title']};")
-                            connect.commit()
-                    except Exception as error:
-                        print(error)
+            context = RemoveForm(choices, request.POST)
+            if context.is_valid():
+                try:
+                    with connect.cursor() as db_connect:
+                        print(context)
+                        db_connect.execute(f"DELETE FROM ex04_movies WHERE title='{context.cleaned_data['title']}';")
+                        connect.commit()
+                except Exception as error:
+                    print(error)
             return redirect('remove')
