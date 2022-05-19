@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path('populate/', views.populate_view),
     path('display/', views.DisplayView.as_view()),
-    # path('remove/', views.RemoveView.as_view(), name='remove')
+    path('remove/', views.RemoveView.as_view(), name='remove')
 ]

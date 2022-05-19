@@ -1,6 +1,8 @@
 from .models import Movies
 from django.http import HttpResponse
 from django.views.generic import ListView, View
+from django.shortcuts import redirect, render
+from .forms import RemoveForm
 
 def populate_view(request):
     movList = [
@@ -65,3 +67,14 @@ class DisplayView(ListView):
 
 class RemoveView(View):
     template_name = 'ex05/remove.html'
+
+    def get(self, request):
+        try:
+            data = Movies.objects.all()
+            print(data)
+            if len(data) == 0:
+                return HttpResponse("No data available movies")
+            choices = ((line.title, line.title) for line in data)
+            return render(request, 'ex05/remove.html', context={'form': RemoveForm(choices)})
+        except Exception:
+            return HttpResponse("No data available movies")

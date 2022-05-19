@@ -105,4 +105,4 @@ class RemoveView(View):
                         connect.commit()
                 except Exception as error:
                     print(error)
-            return redirect('remove')
+            return redirect('removeex04')
