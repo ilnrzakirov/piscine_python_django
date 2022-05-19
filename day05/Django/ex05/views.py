@@ -86,4 +86,17 @@ class RemoveView(View):
             return HttpResponse("No data available movies")
 
     def post(self, request):
-
+        try:
+            data = Movies.objects.all()
+            if len(data) == 0:
+                return redirect('remove')
+        except Exception as error:
+            return redirect('remove')
+        choices = ((line.title, line.title) for line in data)
+        context = RemoveForm(choices, request.POST)
+        if context.is_valid():
+            try:
+                Movies.objects.filter(title=context.cleaned_data['title']).delete()
+            except Exception as error:
+                print(error)
+        return redirect('remove')
