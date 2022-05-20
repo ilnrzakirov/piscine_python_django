@@ -61,7 +61,7 @@ def populate_view(request):
         except Exception as error:
             return HttpResponse(error)
     if count == 0:
-        count = 1
+        return HttpResponse("nothing to add")
     return HttpResponse("Ok " * count)
 
 
