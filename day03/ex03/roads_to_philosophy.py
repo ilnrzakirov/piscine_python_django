@@ -3,8 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def search_phil(word):
-    titleList = []
+def search_phil(word, titleList):
     if word.startswith("/wiki/"):
         word = word.replace("/wiki/", "")
     url = f'https://en.wikipedia.org/wiki/{word}'
@@ -20,6 +19,7 @@ def search_phil(word):
     data = BeautifulSoup(response.text, 'html.parser')
     title = data.find(id='firstHeading').text
     if title in titleList:
+        # print("Loop")
         return
     titleList.append(title)
     print(title)
@@ -31,17 +31,18 @@ def search_phil(word):
     for link in links:
         if link.get('href') is not None and link['href'].startswith('/wiki/') \
                 and not link['href'].startswith('/wiki/Wikipedia:') and not link['href'].startswith('/wiki/Help:'):
-            search_phil(link["href"])
+            search_phil(link["href"], titleList)
     print("It's a dead end !")
     return
 
 
 def main():
+    titleList = []
     if len(sys.argv) != 2:
         print("Bad argument")
         sys.exit()
     if len(sys.argv) == 2:
-        search_phil(sys.argv[1])
+        search_phil(sys.argv[1], titleList)
 
 
 if __name__ == '__main__':
