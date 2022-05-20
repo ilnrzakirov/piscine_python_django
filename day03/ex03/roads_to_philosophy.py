@@ -19,7 +19,7 @@ def search_phil(word, titleList):
     data = BeautifulSoup(response.text, 'html.parser')
     title = data.find(id='firstHeading').text
     if title in titleList:
-        # print("Loop")
+        print("Loop")
         return
     titleList.append(title)
     print(title)
@@ -31,7 +31,7 @@ def search_phil(word, titleList):
     for link in links:
         if link.get('href') is not None and link['href'].startswith('/wiki/') \
                 and not link['href'].startswith('/wiki/Wikipedia:') and not link['href'].startswith('/wiki/Help:'):
-            search_phil(link["href"], titleList)
+            return search_phil(link["href"], titleList)
     print("It's a dead end !")
     return
 
