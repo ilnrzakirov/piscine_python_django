@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import psycopg2
 from django.conf import settings
 from django.http import HttpRequest, HttpResponse
+from django.views import View
+from  .forms import UpdateForm
 
 def db_init_view(request):
     try:
@@ -120,3 +122,52 @@ def display_view(request):
     except Exception as error:
         return HttpResponse(error)
     return render(request, 'display.html', context={'data': data})
+
+class UpdateView(View):
+
+    def get(self, request):
+        try:
+            db = settings.DATABASES['default']
+            connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
+                                       host=db['HOST'], port=db['PORT'])
+            with connect.cursor() as db_connect:
+                db_connect.execute("SELECT * FROM ex06_movies;")
+                if (db_connect.fetchone() == None):
+                    return HttpResponse("No data available")
+                db_connect.execute("SELECT * FROM ex06_movies;")
+                data = db_connect.fetchall()
+                connect.close()
+                context = {'form': UpdateForm(choices=((line[1], line[1]) for line in data))}
+                return render(request, 'update.html', context=context)
+        except Exception as error:
+            print(error)
+            return HttpResponse("No data available")
+
+    def post(self, request):
+        global connect
+        try:
+            db = settings.DATABASES['default']
+            connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
+                                       host=db['HOST'], port=db['PORT'])
+            with connect.cursor() as db_connect:
+                db_connect.execute("SELECT * FROM ex06_movies;")
+                if (db_connect.fetchone() == None):
+                    return HttpResponse("No data available")
+                db_connect.execute("SELECT * FROM ex06_movies;")
+                data = db_connect.fetchall()
+                choices = ((line[1], line[1]) for line in data)
+        except Exception as error:
+            print(error)
+        context = UpdateForm(choices, request.POST)
+        if context.is_valid():
+            try:
+                with connect.cursor() as db_connect:
+                    db_connect.execute(f"UPDATE ex06_movies SET opening_crawl='{context.cleaned_data['opening_crawl']}'"
+                                       f"WHERE title='{context.cleaned_data['title']}';")
+                    connect.commit()
+                    connect.close()
+            except Exception as error:
+                print(error)
+        return redirect('update')
+
+
