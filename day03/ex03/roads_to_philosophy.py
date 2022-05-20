@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 
 
 def search_phil(word, titleList):
+    global response
     if word.startswith("/wiki/"):
         word = word.replace("/wiki/", "")
     url = f'https://en.wikipedia.org/wiki/{word}'
@@ -30,7 +31,8 @@ def search_phil(word, titleList):
     links = content.select("p > a")
     for link in links:
         if link.get('href') is not None and link['href'].startswith('/wiki/') \
-                and not link['href'].startswith('/wiki/Wikipedia:') and not link['href'].startswith('/wiki/Help:'):
+                and not link['href'].startswith('/wiki/Wikipedia:') and not link['href'].startswith('/wiki/Help:') and \
+                '.' not in link['href'] and ':' not in link['href'] and not link['href'].startswith("/wiki/File:"):
             return search_phil(link["href"], titleList)
     print("It's a dead end !")
     return
