@@ -103,3 +103,20 @@ def populate_view(request):
             return HttpResponse("Ok " * count)
     except Exception as error:
         return HttpResponse(error)
+
+
+def display_view(request):
+    try:
+        db = settings.DATABASES['default']
+        connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
+                                   host=db['HOST'], port=db['PORT'])
+        with connect.cursor() as db_connect:
+            db_connect.execute("SELECT * FROM ex06_movies;")
+            if (db_connect.fetchone() == None):
+                return HttpResponse("No data available")
+            db_connect.execute("SELECT * FROM ex06_movies;")
+            data = db_connect.fetchall()
+            connect.close()
+    except Exception as error:
+        return HttpResponse(error)
+    return render(request, 'display.html', context={'data': data})
