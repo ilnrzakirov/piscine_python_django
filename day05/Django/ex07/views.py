@@ -1,9 +1,10 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView, ListView
-
+from django.shortcuts import render, redirect
+from django.conf import settings
+from django.http import HttpRequest, HttpResponse
+from django.views import View
+from .forms import UpdateForm
 from .models import Movies
-from django.http import HttpResponse
-
+from django.views.generic import TemplateView, ListView
 
 def populate_view(request):
     movList = [
@@ -64,8 +65,37 @@ def populate_view(request):
         return HttpResponse("nothing to add")
     return HttpResponse("Ok " * count)
 
-
 class DisplayView(ListView):
     template_name = 'ex07/display.html'
     context_object_name = 'data'
     queryset = Movies.objects.all()
+
+
+class UpdateView(View):
+
+    def get(self, request):
+        data = Movies.objects.all()
+        if len(data) == 0:
+            return HttpResponse("No data available")
+        choices = ((line.title, line.title) for line in data)
+        return render(request, 'ex07/update.html', context={'form': UpdateForm(choices=choices)})
+
+    def post(self, request):
+        global data
+        try:
+            data = Movies.objects.all()
+            if len(data) == 0:
+                return redirect('update')
+        except Exception as error:
+            print(error)
+        choices = ((line.title, line.title) for line in data)
+        context = UpdateForm(choices, request.POST)
+        if context.is_valid():
+            try:
+                movie_object = Movies.objects.get(title=context.cleaned_data['title'])
+                movie_object.opening_crawl = context.cleaned_data['opening_crawl']
+                movie_object.save()
+            except Exception as error:
+                print(error)
+        return redirect('update')
+
