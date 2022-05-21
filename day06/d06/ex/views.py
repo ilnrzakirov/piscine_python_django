@@ -17,15 +17,18 @@ def get_username(request):
 
 
 class LoginView(LoginView):
+    redirect_authenticated_user = 'intro'
     template_name = 'login.html'
     success_url = 'intro'
 
 
 class LogoutView(LogoutView):
-    next_page = 'intro.html'
+    next_page = 'intro'
 
 
 def register_view(request):
+    if request.user.is_authenticated:
+        return redirect('intro')
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
