@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from ..ex02.views import SubmitView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
