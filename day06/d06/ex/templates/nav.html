@@ -1,3 +1,4 @@
 {% block nav %}
-    <div>Hello {{ user.username }}</div>
+    <meta http-equiv="refresh" content="42">
+    <div>Hello {{ request.COOKIES.user }}</div>
 {% endblock %}

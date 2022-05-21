@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ex'
+    'ex',
 ]
 
 MIDDLEWARE = [
@@ -125,4 +125,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_COOKIE_AGE = 42
 
-names = ['anon', 'anon2', 'anon3', 'anon4', 'anon5', 'anon6', 'anon7', 'anon8', 'anon9', 'anon10']
+NAMES = ['anon', 'anon2', 'anon3', 'anon4', 'anon5', 'anon6', 'anon7', 'anon8', 'anon9', 'anon10']
