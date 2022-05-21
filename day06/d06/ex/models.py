@@ -1,3 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 
-# Create your models here.
+
+class Tip(models.Model):
+    content = models.CharField(null=False)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
