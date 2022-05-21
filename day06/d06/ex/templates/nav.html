@@ -1,6 +1,10 @@
 {% block nav %}
-    <meta http-equiv="refresh" content="42">
-    <div>Hello {{ request.COOKIES.user }}</div>
+    {% if request.user.is_authenticated %}
+         <div>Hello {{ request.user.username }}</div>
+    {% else %}
+            <meta http-equiv="refresh" content="42">
+            <div>Hello {{ request.COOKIES.user }}</div>
+    {% endif %}
     <p><a href="{% url 'login' %}">Login</a></p>
     <p><a href="{% url 'register' %}">Register</a> </p>
 {% endblock %}

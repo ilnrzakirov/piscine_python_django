@@ -18,6 +18,7 @@ def get_username(request):
 
 class LoginView(LoginView):
     template_name = 'login.html'
+    success_url = 'intro'
 
 
 class LogoutView(LogoutView):
