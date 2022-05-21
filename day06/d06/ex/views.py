@@ -23,11 +23,11 @@ def get_username(request):
 class LoginView(LoginView):
     redirect_authenticated_user = 'intro'
     template_name = 'login.html'
-    success_url = 'intro'
+    success_url = 'home'
 
 
 class LogoutView(LogoutView):
-    next_page = 'intro'
+    next_page = 'home'
 
 
 def register_view(request):
