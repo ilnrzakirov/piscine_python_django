@@ -5,6 +5,10 @@
             <meta http-equiv="refresh" content="42">
             <div>Hello {{ request.COOKIES.user }}</div>
     {% endif %}
+        {% if request.user.is_authenticated %}
+                <p><a href="{% url 'logout' %}">Logout</a></p>
+            {% else %}
     <p><a href="{% url 'login' %}">Login</a></p>
     <p><a href="{% url 'register' %}">Register</a> </p>
+        {% endif %}
 {% endblock %}
