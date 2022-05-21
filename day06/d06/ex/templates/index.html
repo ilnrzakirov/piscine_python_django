@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Tip{% endblock %}
+{% block content %}
+        {% if request.user.is_authenticated %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {{ form.as_p }}
+                <button type="submit">Enter</button>
+            </form>
+        {% endif %}
+
+<h1>Tips</h1>
+<p>
+{% if data %}
+    {% for text in data %}
+    {{text.author}} <br>
+        {{ text.content }} <br>
+        {{ text.date }}<br>
+</p>
+     {% endfor %}
+</body>
+    {% else %}
+    <p>No tip</p>
+    {% endif %}
+{% endblock %}

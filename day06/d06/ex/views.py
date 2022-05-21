@@ -1,9 +1,13 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.conf import settings
 from random import choice
 from django.contrib.auth.views import LoginView, LogoutView
-from .forms import RegisterForm
+from django.views.generic import ListView
+from .models import Tip
+
+from .forms import RegisterForm, TipForm
 
 
 def get_username(request):
@@ -39,3 +43,24 @@ def register_view(request):
     else:
         form = RegisterForm()
     return render(request, 'login.html', context={'form': form})
+
+
+class TipView(ListView):
+    template_name = 'index.html'
+    context_object_name = 'tips'
+    queryset = Tip.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        form = TipForm()
+        data = Tip.objects.all()
+        return render(request, 'index.html', context={'data': data, 'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = TipForm(request.POST)
+        if form.is_valid():
+            tip = form.save()
+            user = User.objects.get(username=request.user.username)
+            Tip.objects.create(author=user, content=tip.content)
+        data = Tip.objects.all()
+        form = TipForm()
+        return render(request, 'index.html', context={'data': data, 'form': form})
