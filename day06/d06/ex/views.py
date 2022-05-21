@@ -58,9 +58,8 @@ class TipView(ListView):
     def post(self, request, *args, **kwargs):
         form = TipForm(request.POST)
         if form.is_valid():
-            tip = form.save()
             user = User.objects.get(username=request.user.username)
-            Tip.objects.create(author=user, content=tip.content)
+            Tip.objects.create(author=user, content=form.cleaned_data['content'])
         data = Tip.objects.all()
         form = TipForm()
         return render(request, 'index.html', context={'data': data, 'form': form})
