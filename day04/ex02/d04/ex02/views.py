@@ -20,6 +20,13 @@ class SubmitView(FormView):
                 file.write("\n")
         return redirect('submit')
 
+    def get(self, request, *args, **kwargs):
+        with open(settings.LOG_ROOT, "r") as file:
+            res = []
+            for line in file.readlines():
+                res.append(line)
+        return render(request, 'submit.html', context={'text': res, 'form': forms.DataForm()})
+
 
 def history_view(request):
     print(settings.LOG_ROOT)
