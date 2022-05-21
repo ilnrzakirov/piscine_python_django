@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 from django.conf import settings
 from random import choice
+from django.contrib.auth.views import LoginView, LogoutView
+from .forms import RegisterForm
 
 
 def get_username(request):
@@ -11,3 +14,24 @@ def get_username(request):
         response = render(request, 'intro.html')
         response.set_cookie('user', user, max_age=42)
     return response
+
+
+class LoginView(LoginView):
+    template_name = 'login.html'
+
+
+class LogoutView(LogoutView):
+    next_page = 'intro.html'
+
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
+            login(request, user)
+            return redirect('intro')
+    else:
+        form = RegisterForm()
+    return render(request, 'login.html', context={'form': form})
