@@ -63,3 +63,5 @@ class TipView(ListView):
         data = Tip.objects.all()
         form = TipForm()
         return render(request, 'index.html', context={'data': data, 'form': form})
+
+

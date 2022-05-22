@@ -122,6 +122,7 @@ USE_TZ = True
 
 STATIC_URL = 'ex02/static/'
 LOG_ROOT = f'{STATIC_URL}log.log'
+STATIC_ROOT = STATIC_URL
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
