@@ -28,7 +28,9 @@
             <input type='submit' name='remove' value='Remove'>
                     {% endif %}
             <input type='submit' name='up' value='Up'>
+            {% if user.is_staff or user == text.author %}
             <input type='submit' name='down' value='Down'>
+                {% endif %}
             </form>
             {% else %}
                 <p><a href="{% url 'login' %}">Login</a></p>
