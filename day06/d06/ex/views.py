@@ -51,6 +51,18 @@ class TipView(ListView):
     queryset = Tip.objects.all()
 
     def get(self, request, *args, **kwargs):
+        if not request.COOKIES.get('user'):
+            form = TipForm()
+            data = Tip.objects.all()
+            for tip in data:
+                tip.upCount()
+                tip.downCount()
+            data = Tip.objects.all()
+            user = choice(settings.NAMES)
+            request.COOKIES['user'] = user
+            response = render(request, 'index.html', context={'data': data, 'form': form})
+            response.set_cookie('user', user, max_age=42)
+            return response
         form = TipForm()
         data = Tip.objects.all()
         for tip in data:
