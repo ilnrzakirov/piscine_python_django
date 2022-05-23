@@ -78,7 +78,7 @@ class TipView(ListView):
             allDownVote = tip[0].downVoice.all()
             for v in allDownVote:
                 if v.user.username == request.user.username:
-                    return redirect('home')
+                    v.delete()
             allVote = tip[0].upVoice.all()
             for v in allVote:
                 if v.user.username == request.user.username:
@@ -96,7 +96,7 @@ class TipView(ListView):
             allUpVote = tip[0].upVoice.all()
             for v in allUpVote:
                 if v.user.username == request.user.username:
-                    return redirect('home')
+                    v.delete()
             allVote = tip[0].downVoice.all()
             for v in allVote:
                 if v.user.username == request.user.username:
