@@ -24,7 +24,9 @@
             <form method='post' class='form'>
             {% csrf_token %}
             <input type='hidden' name='id' value='{{ text.id }}'>
+                {% if user.is_staff or user == text.author %}
             <input type='submit' name='remove' value='Remove'>
+                    {% endif %}
             <input type='submit' name='up' value='Up'>
             <input type='submit' name='down' value='Down'>
             </form>

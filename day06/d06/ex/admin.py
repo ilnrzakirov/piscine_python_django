@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Tip
 
-# Register your models here.
+
+@admin.register(Tip)
+class TipAdmin(admin.ModelAdmin):
+    list_display = ['content', 'author', 'date', 'countUpVoice', 'countDownVoice']
