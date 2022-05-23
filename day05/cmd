@@ -1,4 +1,18 @@
 brew install PostgreSQL
-initdb postgres
-pg_ctl -D postgres start
-psql postgres
+
+
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+
+
+        db = settings.DATABASES['default']
+        connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
+                                   host=db['HOST'], port=db['PORT'])
+        with connect.cursor() as db_connect:
+            db_connect.execute("drop table if exists ex00_movies;")
