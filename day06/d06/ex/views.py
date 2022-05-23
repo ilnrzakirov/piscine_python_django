@@ -60,36 +60,40 @@ class TipView(ListView):
         return render(request, 'index.html', context={'data': data, 'form': form})
 
     def post(self, request, *args, **kwargs):
+        flag = True
         if 'up' in request.POST:
             tip = Tip.objects.filter(id=request.POST['id'])
+            allDownVote = tip[0].downVoice.all()
+            for v in allDownVote:
+                if v.user.username == request.user.username:
+                    return redirect('home')
             allVote = tip[0].upVoice.all()
-            if len(allVote) == 0:
+            for v in allVote:
+                if v.user.username == request.user.username:
+                    v.delete()
+                    flag = False
+            if flag:
                 vote = UpVoice.objects.create(user=request.user)
                 vote.save()
                 Tip.objects.filter(id=request.POST['id'])[0].upVoice.add(vote)
-            for v in allVote:
-                if v.user.username == request.user.username:
-                    v.delete()
-                else:
-                    vote = UpVoice.objects.create(user=request.user)
-                    vote.save()
-                    Tip.objects.filter(id=request.POST['id'])[0].upVoice.add(vote)
             return redirect('home')
 
         if 'down' in request.POST:
+            flag = True
             tip = Tip.objects.filter(id=request.POST['id'])
+            allUpVote = tip[0].upVoice.all()
+            for v in allUpVote:
+                if v.user.username == request.user.username:
+                    return redirect('home')
             allVote = tip[0].downVoice.all()
-            if len(allVote) == 0:
-                vote = DownVoice.objects.create(user=request.user)
-                vote.save()
-                Tip.objects.filter(id=request.POST['id'])[0].downVoice.add(vote)
             for v in allVote:
                 if v.user.username == request.user.username:
                     v.delete()
-                else:
-                    vote = DownVoice.objects.create(user=request.user)
-                    vote.save()
-                    Tip.objects.filter(id=request.POST['id'])[0].downVoice.add(vote)
+                    flag = False
+            if flag:
+                vote = DownVoice.objects.create(user=request.user)
+                vote.save()
+                Tip.objects.filter(id=request.POST['id'])[0].downVoice.add(vote)
             return redirect('home')
 
         if 'remove' in request.POST:
