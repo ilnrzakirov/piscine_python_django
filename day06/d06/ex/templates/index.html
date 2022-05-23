@@ -13,9 +13,27 @@
 <p>
 {% if data %}
     {% for text in data %}
+    <table>
+    <td>
     {{text.author}} <br>
         {{ text.content }} <br>
         {{ text.date }}<br>
+    </td>
+    <td>
+        {% if user.is_authenticated %}
+            <form method='post' class='form'>
+            {% csrf_token %}
+            <input type='hidden' name='id' value='{{ text.id }}'>
+            <input type='submit' name='remove' value='Remove'>
+            <input type='submit' name='up' value='Up'>
+            <input type='submit' name='down' value='Down'>
+            </form>
+            {% else %}
+                <p><a href="{% url 'login' %}">Login</a></p>
+                <p><a href="{% url 'register' %}">Register</a> </p>
+            {% endif %}
+    </td>
+    </table>
 </p>
      {% endfor %}
 </body>

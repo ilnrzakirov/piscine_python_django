@@ -5,7 +5,7 @@ from django.conf import settings
 from random import choice
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView
-from .models import Tip
+from .models import Tip, UpVoice, DownVoice
 
 from .forms import RegisterForm, TipForm
 
@@ -56,6 +56,43 @@ class TipView(ListView):
         return render(request, 'index.html', context={'data': data, 'form': form})
 
     def post(self, request, *args, **kwargs):
+        if 'up' in request.POST:
+            tip = Tip.objects.filter(id=request.POST['id'])
+            allVote = tip[0].upVoice.all()
+            if len(allVote) == 0:
+                vote = UpVoice.objects.create(user=request.user)
+                vote.save()
+                Tip.objects.filter(id=request.POST['id'])[0].upVoice.add(vote)
+            for v in allVote:
+                if v.user.username == request.user.username:
+                    v.delete()
+                else:
+                    vote = UpVoice.objects.create(user=request.user)
+                    vote.save()
+                    Tip.objects.filter(id=request.POST['id'])[0].upVoice.add(vote)
+            return render(request, 'index.html', context={'data': Tip.objects.all(), 'form': TipForm()})
+
+        if 'down' in request.POST:
+            tip = Tip.objects.filter(id=request.POST['id'])
+            allVote = tip[0].downVoice.all()
+            if len(allVote) == 0:
+                vote = DownVoice.objects.create(user=request.user)
+                vote.save()
+                Tip.objects.filter(id=request.POST['id'])[0].downVoice.add(vote)
+            for v in allVote:
+                if v.user.username == request.user.username:
+                    v.delete()
+                else:
+                    vote = DownVoice.objects.create(user=request.user)
+                    vote.save()
+                    Tip.objects.filter(id=request.POST['id'])[0].downVoice.add(vote)
+            return render(request, 'index.html', context={'data': Tip.objects.all(), 'form': TipForm()})
+
+        if 'remove' in request.POST:
+            tip = Tip.objects.filter(id=request.POST['id'])
+            tip.delete()
+            return render(request, 'index.html', context={'data': Tip.objects.all(), 'form': TipForm()})
+
         form = TipForm(request.POST)
         if form.is_valid():
             user = User.objects.get(username=request.user.username)
