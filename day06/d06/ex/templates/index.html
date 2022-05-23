@@ -17,7 +17,7 @@
     <td>
     {{text.author}} <br>
         {{ text.content }} <br>
-        {{ text.date }}<br>
+        {{ text.date }} Like: {{text.countUpVoice}} Dislike: {{text.countDownVoice}}
     </td>
     <td>
         {% if user.is_authenticated %}

@@ -53,6 +53,10 @@ class TipView(ListView):
     def get(self, request, *args, **kwargs):
         form = TipForm()
         data = Tip.objects.all()
+        for tip in data:
+            tip.upCount()
+            tip.downCount()
+        data = Tip.objects.all()
         return render(request, 'index.html', context={'data': data, 'form': form})
 
     def post(self, request, *args, **kwargs):
@@ -70,7 +74,7 @@ class TipView(ListView):
                     vote = UpVoice.objects.create(user=request.user)
                     vote.save()
                     Tip.objects.filter(id=request.POST['id'])[0].upVoice.add(vote)
-            return render(request, 'index.html', context={'data': Tip.objects.all(), 'form': TipForm()})
+            return redirect('home')
 
         if 'down' in request.POST:
             tip = Tip.objects.filter(id=request.POST['id'])
@@ -86,12 +90,12 @@ class TipView(ListView):
                     vote = DownVoice.objects.create(user=request.user)
                     vote.save()
                     Tip.objects.filter(id=request.POST['id'])[0].downVoice.add(vote)
-            return render(request, 'index.html', context={'data': Tip.objects.all(), 'form': TipForm()})
+            return redirect('home')
 
         if 'remove' in request.POST:
             tip = Tip.objects.filter(id=request.POST['id'])
             tip.delete()
-            return render(request, 'index.html', context={'data': Tip.objects.all(), 'form': TipForm()})
+            return redirect('home')
 
         form = TipForm(request.POST)
         if form.is_valid():

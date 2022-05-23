@@ -14,4 +14,15 @@ class Tip(models.Model):
     date = models.DateField(auto_now_add=True)
     upVoice = models.ManyToManyField(UpVoice)
     downVoice = models.ManyToManyField(DownVoice)
+    countUpVoice = models.IntegerField(default=0)
+    countDownVoice = models.IntegerField(default=0)
 
+    def upCount(self):
+        voice = self.upVoice.all()
+        self.countUpVoice = len(voice)
+        self.save()
+
+    def downCount(self):
+        voice = self.downVoice.all()
+        self.countDownVoice = len(voice)
+        self.save()
