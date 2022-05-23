@@ -6,5 +6,5 @@ urlpatterns = [
     path('populate/', views.populate_view),
     path('init/', views.db_init_view),
     path('display/', views.display_view),
-    path('update/', views.UpdateView.as_view(), name='update'),
+    path('update/', views.UpdateView.as_view(), name='update1'),
 ]

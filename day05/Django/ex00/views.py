@@ -12,7 +12,7 @@ def db_init_view(request):
         connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
                                    host=db['HOST'], port=db['PORT'])
         with connect.cursor() as db_connect:
-            db_connect.execute("drop table if exists ex00_movies;")
+            # db_connect.execute("drop table if exists ex00_movies;")
             db_connect.execute("CREATE TABLE IF NOT EXISTS ex00_movies (episode_nb INT PRIMARY KEY, "
                                "title VARCHAR(64) UNIQUE NOT NULL, opening_crawl TEXT, director VARCHAR(32) NOT NULL, "
                                "producer VARCHAR(128) NOT NULL, release_date DATE NOT NULL);")

@@ -138,7 +138,7 @@ class UpdateView(View):
                 data = db_connect.fetchall()
                 connect.close()
                 context = {'form': UpdateForm(choices=((line[1], line[1]) for line in data))}
-                return render(request, 'update.html', context=context)
+                return render(request, 'ex06/update.html', context=context)
         except Exception as error:
             print(error)
             return HttpResponse("No data available")
@@ -168,6 +168,6 @@ class UpdateView(View):
                     connect.close()
             except Exception as error:
                 print(error)
-        return redirect('update')
+        return redirect('update1')
 
 

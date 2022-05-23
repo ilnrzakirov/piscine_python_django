@@ -78,11 +78,11 @@ def populate_view(request):
                                    host=db['HOST'], port=db['PORT'])
         with connect.cursor() as db_connect:
             for mov in movList:
-                db_connect.execute(f"SELECT title FROM ex06_movies WHERE episode_nb='{mov['episode_nb']}';")
+                db_connect.execute(f"SELECT title FROM ex04_movies WHERE episode_nb='{mov['episode_nb']}';")
                 connect.commit()
                 if db_connect.fetchone():
                     continue
-                db_connect.execute(f"INSERT INTO ex06_movies (episode_nb, title, director, producer, "
+                db_connect.execute(f"INSERT INTO ex04_movies (episode_nb, title, director, producer, "
                                    f"release_date) VALUES ({mov['episode_nb']}, '{mov['title']}', '{mov['director']}', "
                                    f"'{mov['producer']}', '{mov['release_date']}');")
                 count += 1
