@@ -21,7 +21,7 @@ def get_username(request):
 
 
 class LoginView(LoginView):
-    redirect_authenticated_user = 'intro'
+    redirect_authenticated_user = 'home'
     template_name = 'login.html'
     success_url = 'home'
 
