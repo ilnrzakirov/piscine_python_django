@@ -6,7 +6,7 @@ from django.conf import settings
 from random import choice
 from django.contrib.auth.views import LoginView, LogoutView, FormView
 from django.views.generic import ListView, DetailView
-from .models import Article
+from .models import Article, UserFavouriteArticle
 
 
 def register_view(request):
@@ -52,16 +52,25 @@ class AddArticleView(FormView):
                                    synopsis=form.cleaned_data['synopsis'])
         return redirect('home')
 
+
 class PublicationsView(ListView):
     template_name = 'publications.html'
     context_object_name = 'data'
     queryset = Article.objects.all()
+
+    def post(self, request):
+        if 'Favourites' in request.POST:
+            article = Article.objects.get(id=request.POST['id'])
+            userFav = UserFavouriteArticle.objects.filter(user=request.user)
+            for favArtic in userFav:
+                if favArtic.article.id == request.POST['id']:
+                    return redirect('home')
+            fav = UserFavouriteArticle.objects.create(user=request.user, article=article)
+        return redirect('public')
+
 
 class ArticleDetailView(DetailView):
     model = Article
     template_name = 'detail.html'
     context_object_name = 'data'
     queryset = Article.objects.all()
-
-
-

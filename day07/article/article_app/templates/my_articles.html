@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Статьи{% endblock %}
 {% block content %}
-        {% if request.user.is_authenticated %}
-            <p><a href="{% url 'add_article' %}">Добавить запись</a></p>
-    {% endif %}
     {% if data %}
     <table>
         <th>Заголовок</th>
@@ -16,13 +13,7 @@
         <td>{{ items.author }}</td>
         <td>{{ items.created }}</td>
         <td>{{ items.synopsis }}  <a href="{% url 'detail' items.pk %}">Подробнее</a></td>
-        <td>{% if  user.is_authenticated %}
-             <form method='post' class='form'>
-            {% csrf_token %}
-                 <input type='hidden' name='id' value='{{ items.id }}'>
-            <input type='submit' name='Favourites' value='Favourites'>
-            </form>
-            {% endif %}</td>
+   
     </tr>
     {% endfor %}
 {% else %}
