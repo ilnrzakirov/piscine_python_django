@@ -93,6 +93,7 @@ class RemoveView(View):
             return redirect('remove')
         choices = ((line.title, line.title) for line in data)
         context = RemoveForm(choices, request.POST)
+        print(request.POST['title'])
         if context.is_valid():
             try:
                 Movies.objects.filter(title=context.cleaned_data['title']).delete()
