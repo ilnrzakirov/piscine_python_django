@@ -23,7 +23,7 @@ class LogoutView(LogoutView):
 class IndexView(ListView):
     template_name = 'index.html'
     context_object_name = 'data'
-    queryset = Article.objects.all()
+    queryset = Article.objects.order_by('created')
 
     def post(self, request):
         if 'Favourites' in request.POST:
