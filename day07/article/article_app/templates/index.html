@@ -1,4 +1,21 @@
 {% extends "base.html" %}
 {% block title %}Article{% endblock %}
 {% block content %}
+    {% if data %}
+    <table>
+        <th>title</th>
+        <th>author</th>
+        <th>created</th>
+        <th>synopsis</th>
+    {% for items in data %}
+    <tr>
+        <td>{{ items.title }}</td>
+        <td>{{ items.author }}</td>
+        <td>{{ items.created }}</td>
+        <td>{{ items.synopsis }}</td>
+    </tr>
+    {% endfor %}
+{% else %}
+    <p>No data available</p>
+{% endif %}
 {% endblock %}

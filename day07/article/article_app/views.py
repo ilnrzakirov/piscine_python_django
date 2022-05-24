@@ -6,6 +6,7 @@ from django.conf import settings
 from random import choice
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import ListView
+from .models import Article
 
 
 def register_view(request):
@@ -35,3 +36,5 @@ class LogoutView(LogoutView):
 
 class IndexView(ListView):
     template_name = 'index.html'
+    context_object_name = 'data'
+    queryset = Article.objects.all()
