@@ -31,3 +31,7 @@ class LoginView(LoginView):
 
 class LogoutView(LogoutView):
     next_page = 'home'
+
+
+class IndexView(ListView):
+    template_name = 'index.html'
