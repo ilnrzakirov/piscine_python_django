@@ -16,3 +16,11 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ('title', 'synopsis', 'content')
+
+
+class AddForm(forms.Form):
+    title = forms.ChoiceField(choices=(), required=True)
+
+    def __init__(self, choices, *args, **kwargs):
+        super(AddForm, self).__init__(*args, **kwargs)
+        self.fields['title'].choices = choices

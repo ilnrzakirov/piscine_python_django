@@ -77,7 +77,6 @@ class RemoveView(View):
     def get(self, request):
         try:
             data = Movies.objects.all()
-            print(data)
             if len(data) == 0:
                 return HttpResponse("No data available")
             choices = ((line.title, line.title) for line in data)

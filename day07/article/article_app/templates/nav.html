@@ -4,10 +4,13 @@
     {% else %}
             <div>Привет 42</div>
     {% endif %}
+<ul>
+<li><a href="{% url 'home' %}">Главная страница</a> <a href="{% url 'last_public' %}">Последние публикации</a></li><br>
         {% if request.user.is_authenticated %}
-                <p><a href="{% url 'logout' %}">Выйти</a></p>
-            {% else %}
-    <p><a href="{% url 'login' %}">Войти</a></p>
-    <p><a href="{% url 'register' %}">Регистрация</a> </p>
+<li><a href="{% url 'public' %}">Мои публикации</a> <a href="{% url 'logout' %}">Выйти</a> <a href="{% url 'fav' %}">Избранные</a> </li><br>
+          {% else %}
+<li><a href="{% url 'login' %}">Войти</a> <a href="{% url 'register' %}">Регистрация</a></li><br>
+            <p><a href="{% url 'register' %}">Регистрация</a> </p>
         {% endif %}
+</ul>
 {% endblock %}
