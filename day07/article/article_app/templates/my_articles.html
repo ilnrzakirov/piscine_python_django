@@ -13,7 +13,6 @@
         <td>{{ items.author }}</td>
         <td>{{ items.created }}</td>
         <td>{{ items.synopsis }}  <a href="{% url 'detail' items.pk %}">Подробнее</a></td>
-   
     </tr>
     {% endfor %}
 {% else %}
