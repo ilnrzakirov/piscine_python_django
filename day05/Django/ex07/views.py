@@ -52,18 +52,21 @@ def populate_view(request):
             'release_date': '2015-12-11',
         },
     ]
-    count = 0
+    count = ""
     for mov in movList:
         try:
             if Movies.objects.filter(episode_nb=mov['episode_nb']).count() == 0:
                 Movies.objects.create(episode_nb=mov['episode_nb'], title=mov['title'], director=mov['director'],
                                       producer=mov['producer'], release_date=mov['release_date'])
-                count += 1
+                count += " Ok"
+            else:
+                count += " Nok"
         except Exception as error:
             return HttpResponse(error)
-    if count == 0:
+    if not "Ok" in count:
         return HttpResponse("nothing to add")
-    return HttpResponse("Ok " * count)
+    return HttpResponse(count)
+
 
 class DisplayView(ListView):
     template_name = 'ex07/display.html'
