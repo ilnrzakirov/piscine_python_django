@@ -5,23 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.conf import settings
 from random import choice
 from django.contrib.auth.views import LoginView, LogoutView, FormView
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Article, UserFavouriteArticle
-
-
-def register_view(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
-            login(request, user)
-            return redirect('home')
-    else:
-        form = RegisterForm()
-    return render(request, 'login.html', context={'form': form})
 
 
 class LoginView(LoginView):
@@ -62,9 +47,7 @@ class PublicationsView(ListView):
         if 'Favourites' in request.POST:
             article = Article.objects.get(id=request.POST['id'])
             userFav = UserFavouriteArticle.objects.filter(user=request.user)
-            print(userFav)
             for favArtic in userFav:
-                print(favArtic.article)
                 if favArtic.article.title == article.title:
                     return redirect('public')
             fav = UserFavouriteArticle.objects.create(user=request.user, article=article)
@@ -87,3 +70,19 @@ class MyArticleView(ListView):
         context = UserFavouriteArticle.objects.filter(user=self.request.user)
         return context
 
+
+class RegistrationWithCreateView(CreateView):
+    form_class = RegisterForm
+    template_name = 'register.html'
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
