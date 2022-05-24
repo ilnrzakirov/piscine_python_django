@@ -2,12 +2,12 @@
     {% if request.user.is_authenticated %}
          <div>Hello {{ request.user.username }}</div>
     {% else %}
-            <div>Hello 42</div>
+            <div>Привет 42</div>
     {% endif %}
         {% if request.user.is_authenticated %}
-                <p><a href="{% url 'logout' %}">Logout</a></p>
+                <p><a href="{% url 'logout' %}">Выйти</a></p>
             {% else %}
-    <p><a href="{% url 'login' %}">Login</a></p>
-    <p><a href="{% url 'register' %}">Register</a> </p>
+    <p><a href="{% url 'login' %}">Войти</a></p>
+    <p><a href="{% url 'register' %}">Регистрация</a> </p>
         {% endif %}
 {% endblock %}

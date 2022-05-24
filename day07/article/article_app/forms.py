@@ -9,7 +9,10 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ('username', 'password1', 'password2')
 
+
 class ArticleForm(forms.ModelForm):
+    synopsis = forms.CharField(max_length=300, widget=forms.Textarea)
+
     class Meta:
         model = Article
         fields = ('title', 'synopsis', 'content')

@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, ArticleForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.conf import settings
 from random import choice
-from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import ListView
+from django.contrib.auth.views import LoginView, LogoutView, FormView
+from django.views.generic import ListView, DetailView
 from .models import Article
 
 
@@ -38,3 +38,30 @@ class IndexView(ListView):
     template_name = 'index.html'
     context_object_name = 'data'
     queryset = Article.objects.all()
+
+
+class AddArticleView(FormView):
+    template_name = 'add_article.html'
+    form_class = ArticleForm
+
+    def post(self, request, *args, **kwargs):
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            user = User.objects.get(username=request.user.username)
+            Article.objects.create(author=user, content=form.cleaned_data['content'], title=form.cleaned_data['title'],
+                                   synopsis=form.cleaned_data['synopsis'])
+        return redirect('home')
+
+class PublicationsView(ListView):
+    template_name = 'publications.html'
+    context_object_name = 'data'
+    queryset = Article.objects.all()
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'detail.html'
+    context_object_name = 'data'
+    queryset = Article.objects.all()
+
+
+

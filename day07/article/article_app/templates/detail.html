@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Детальная информация{% endblock %}
+{% block content %}
+    <div>
+    <h2>{{ data.title }}</h2>
+    <p>{{ data.created }} {{ data.author }} {{ data.content }}</p>
+    </div>
+{% endblock %}
