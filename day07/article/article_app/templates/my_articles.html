@@ -9,13 +9,14 @@
         <th>Краткое описание</th>
     {% for items in data %}
     <tr>
-        <td>{{ items.title }}</td>
-        <td>{{ items.author }}</td>
-        <td>{{ items.created }}</td>
-        <td>{{ items.synopsis }}  <a href="{% url 'detail' items.pk %}">Подробнее</a></td>
+        <td>{{ items.article.title }}</td>
+        <td>{{ items.article.author }}</td>
+        <td>{{ items.article.created }}</td>
+        <td>{{ items.article.synopsis }}  <a href="{% url 'detail' items.article.pk %}">Подробнее</a></td>
     </tr>
     {% endfor %}
 {% else %}
     <p>Нет записей</p>
 {% endif %}
+        <p><a href="{% url 'public' %}">Назад</a></p>
 {% endblock %}

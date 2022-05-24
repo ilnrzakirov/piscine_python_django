@@ -11,5 +11,6 @@ urlpatterns = [
     path('add/', views.AddArticleView.as_view(), name='add_article'),
     path('publications/', views.PublicationsView.as_view(), name='public'),
     path('article/<int:pk>', views.ArticleDetailView.as_view(), name='detail'),
-    path('accounts/profile/', views.PublicationsView.as_view())
+    path('accounts/profile/', views.PublicationsView.as_view()),
+    path('favourites/', views.MyArticleView.as_view(), name='fav'),
 ]

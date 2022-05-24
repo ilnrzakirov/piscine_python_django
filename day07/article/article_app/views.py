@@ -62,9 +62,11 @@ class PublicationsView(ListView):
         if 'Favourites' in request.POST:
             article = Article.objects.get(id=request.POST['id'])
             userFav = UserFavouriteArticle.objects.filter(user=request.user)
+            print(userFav)
             for favArtic in userFav:
-                if favArtic.article.id == request.POST['id']:
-                    return redirect('home')
+                print(favArtic.article)
+                if favArtic.article.title == article.title:
+                    return redirect('public')
             fav = UserFavouriteArticle.objects.create(user=request.user, article=article)
         return redirect('public')
 
@@ -74,3 +76,14 @@ class ArticleDetailView(DetailView):
     template_name = 'detail.html'
     context_object_name = 'data'
     queryset = Article.objects.all()
+
+
+class MyArticleView(ListView):
+    model = UserFavouriteArticle
+    template_name = 'my_articles.html'
+    context_object_name = 'data'
+
+    def get_queryset(self):
+        context = UserFavouriteArticle.objects.filter(user=self.request.user)
+        return context
+
