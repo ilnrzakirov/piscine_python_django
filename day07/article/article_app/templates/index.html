@@ -3,6 +3,7 @@
 {% block content %}
         {% if request.user.is_authenticated %}
             <p><a href="{% url 'add_article' %}">Добавить запись</a></p>
+             <p><a href="{% url 'public' %}">Все публикации</a></p>
     {% endif %}
     {% if data %}
     <table>
