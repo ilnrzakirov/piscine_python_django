@@ -12,7 +12,7 @@ def db_init_view(request):
         connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
                                    host=db['HOST'], port=db['PORT'])
         with connect.cursor() as db_connect:
-            db_connect.execute("drop table if exists ex02_movies;")
+            # db_connect.execute("drop table if exists ex02_movies;")
             db_connect.execute("CREATE TABLE IF NOT EXISTS ex02_movies (episode_nb INT PRIMARY KEY, "
                                "title VARCHAR(64) UNIQUE NOT NULL, opening_crawl TEXT, director VARCHAR(32) NOT NULL, "
                                "producer VARCHAR(128) NOT NULL, release_date DATE NOT NULL);")
@@ -68,7 +68,7 @@ def populate_view(request):
             'release_date': '2015-12-11',
         },
     ]
-    count = 0
+    count = ""
     try:
         db = settings.DATABASES['default']
         connect = psycopg2.connect(dbname=db['NAME'], user=db['USER'], password=db['PASSWORD'],
@@ -78,16 +78,17 @@ def populate_view(request):
                 db_connect.execute(f"SELECT title FROM ex02_movies WHERE episode_nb='{mov['episode_nb']}';")
                 connect.commit()
                 if db_connect.fetchone():
+                    count += " Nok"
                     continue
                 db_connect.execute(f"INSERT INTO ex02_movies (episode_nb, title, director, producer, "
                                    f"release_date) VALUES ({mov['episode_nb']}, '{mov['title']}', '{mov['director']}', "
                                    f"'{mov['producer']}', '{mov['release_date']}');")
-                count += 1
+                count += " Ok"
                 connect.commit()
             connect.close()
-            if count == 0:
+            if not "Ok" in count:
                 return HttpResponse("nothing to add")
-            return HttpResponse("Ok " * count)
+            return HttpResponse(count)
     except Exception as error:
         return HttpResponse(error)
 
