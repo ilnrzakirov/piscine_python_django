@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f0f0f0;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+}
+
+html {
+  font-family: sans-serif;
+}
+
+.header-list {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.header-item:not(:last-child) {
+  margin-right: 60px;
+}
+
