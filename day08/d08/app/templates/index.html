@@ -8,13 +8,12 @@
 </head>
 <body style="background-image: url({% static 'image.jpeg' %})">
     {% bootstrap_css %} {% bootstrap_javascript %}
-<div class="contain">
+<div    >
           {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
                 {% if data %}
                 {% for img in data %}
                     <h3 class="text-white" >{{ img.title }}</h3>
-                    <img src="{{ img.image.url }}"
-                         alt="{{ img.title }}"/>
+                    <img src="{{ img.image.url }}" alt="{{ img.title }}"/>
                 {% endfor %}
                 {% endif %}
 </div>

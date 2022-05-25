@@ -3,7 +3,7 @@
          <div>Hello {{ request.user.username }}</div>
     {% else %}
             <meta http-equiv="refresh" content="42">
-            <div>Hello {{ request.COOKIES.user }}</div>
+                <div>Hello {{ request.COOKIES.user }}</div>
     {% endif %}
         {% if request.user.is_authenticated %}
                 <p><a href="{% url 'logout' %}">Logout</a></p>

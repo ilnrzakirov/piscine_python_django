@@ -12,11 +12,13 @@ from .forms import RegisterForm, TipForm
 
 def get_username(request):
     response = render(request, 'intro.html')
-    if not request.COOKIES.get('user'):
+    if 'user' not in request.session or request.session.get_expiry_age() == 0:
         user = choice(settings.NAMES)
-        request.COOKIES['user'] = user
+        request.session['user'] = user
+        request.session.set_expiry(value=42)
+        request.session.clear_expired()
         response = render(request, 'intro.html')
-        response.set_cookie('user', user, max_age=42)
+        # response.set_cookie('user', user, max_age=42)
     return response
 
 
