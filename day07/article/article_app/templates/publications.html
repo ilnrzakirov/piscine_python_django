@@ -3,22 +3,20 @@
 {% block content %}
         {% if request.user.is_authenticated %}
             <p><a href="{% url 'add_article' %}">Добавить запись</a></p>
-            <p><a href="{% url 'fav' %}">Избранные</a></p>
-            <p><a href="{% url 'home' %}">Главная страница</a></p>
     {% endif %}
     {% if data %}
-    <table>
-        <th>Заголовок</th>
-        <th>Автор</th>
-        <th>Дата и время создания</th>
-        <th>Краткое описание</th>
+    <table class="table">
+        <th class="table-item">Заголовок</th>
+        <th class="table-item">Автор</th>
+        <th class="table-item">Дата и время создания</th>
+        <th class="table-item">Краткое описание</th>
     {% for items in data %}
     <tr>
-        <td>{{ items.title }}</td>
-        <td>{{ items.author }}</td>
-        <td>{{ items.created }}</td>
-        <td>{{ items.synopsis|truncatechars:20 }}  <a href="{% url 'detail' items.pk %}">Подробнее</a></td>
-        <td>{% if  user.is_authenticated %}
+        <td class="table-item">{{ items.title }}</td>
+        <td class="table-item">{{ items.author }}</td>
+        <td class="table-item">{{ items.created }}</td>
+            <td class="table-item">{{ items.synopsis|truncatechars:20 }}  <a href="{% url 'detail' items.pk %}">Подробнее</a></td>
+        <td class="table-item">{% if  user.is_authenticated %}
              <form method='post' class='form'>
             {% csrf_token %}
                  <input type='hidden' name='id' value='{{ items.id }}'>

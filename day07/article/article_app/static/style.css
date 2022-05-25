@@ -35,3 +35,12 @@ html {
   margin-right: 60px;
 }
 
+.table {
+  margin-right: 100px;
+  border-collapse: collapse;
+}
+
+.table-item {
+    font-size: 16px;
+}
+
