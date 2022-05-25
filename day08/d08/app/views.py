@@ -1,5 +1,3 @@
-from pyexpat.errors import messages
-from django.shortcuts import render
 from django.views.generic import FormView, ListView
 from .models import Image
 from .forms import ImageForm
