@@ -1,0 +1,31 @@
+{% load bootstrap5 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image</title>
+</head>
+<body style="background-image: url({% static 'image.jpeg' %})">
+    {% bootstrap_css %} {% bootstrap_javascript %}
+<div class="contain">
+          {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+                {% if data %}
+                {% for img in data %}
+                    <h3 class="text-white" >{{ img.title }}</h3>
+                    <img src="{{ img.image.url }}"
+                         alt="{{ img.title }}"/>
+                {% endfor %}
+                {% endif %}
+</div>
+<div>
+    <form class="form" method="POST" action="{% url 'home'%}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_field form.title %}
+                    {% bootstrap_field form.image %}
+                    {% buttons submit='Submit' class="btn btn-primary" %}
+                    {% endbuttons %}
+    </form>
+</div>
+</body>
+</html>
