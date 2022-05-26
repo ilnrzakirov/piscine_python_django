@@ -1,0 +1,5 @@
+Django==3.2.3
+psycopg2-binary==2.9.3
+Pillow
+django-bootstrap-v5
+uwsgi
